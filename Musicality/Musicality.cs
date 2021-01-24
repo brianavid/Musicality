@@ -15,18 +15,20 @@ namespace Musicality
             public int Degree2;
             public int Sharps;
         }
+
         static int currentNote;
         static List<int> currentNotes;
-        static readonly Random random = new Random();
         static int startNote;
         static int targetNote;
         static List<int> startNotes;
         static List<int> targetNotes;
+        static int interval;
 
         public static string Instructions { get; private set; }
         public static bool IsPlaying { get; private set; }
 
-        static int interval;
+        static readonly Random random = new Random();
+
         static Dictionary<int, string> intervalName = new Dictionary<int, string>
         {
             { -7, "perfect 5th down"},
@@ -88,7 +90,6 @@ namespace Musicality
         {
             MidiPlayer.Initialise();
         }
-
 
         public static void PickRandomIntervalToSing(int middleNote)
         {
@@ -162,6 +163,7 @@ namespace Musicality
         public static void BuildSequenceToSing(bool fullOctave)
         {
             targetNotes = MakeNoteSequence(fullOctave, 10);
+
             var instructionsSB = new StringBuilder("This is C. Sing");
             foreach (var note in targetNotes)
             {
@@ -280,9 +282,7 @@ namespace Musicality
                 currentNote = 0;
                 IsPlaying = false;
             }
-
         }
 
     }
-
 }
