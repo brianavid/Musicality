@@ -1,27 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Musicality
 {
-    public partial class Form1 : Form
+    public partial class IntervalSingForm : Form
     {
-        public Form1()
+        public IntervalSingForm()
         {
             Musicality.Initialise();
             InitializeComponent();
+            comboBoxNote.SelectedItem = "A";
+            comboBoxOctave.SelectedItem = "3";
         }
 
         private void buttonGo_Click(object sender, EventArgs e)
         {
             if (!Musicality.IsPlaying)
             {
-                Musicality.BuildSequenceToSing(checkBoxFullOctave.Checked);
+                int middleNote = comboBoxNote.SelectedIndex + comboBoxOctave.SelectedIndex * 12 + 36;
+                Musicality.PickRandomIntervalToSing(middleNote);
                 instructions.Text = Musicality.Instructions;
                 textBoxNotes.Text = "";
                 buttonAgain.Enabled = true;
@@ -44,11 +41,23 @@ namespace Musicality
         {
             if (!Musicality.IsPlaying)
             {
-                Musicality.PlaySequenceSingTarget();
+                textBoxNotes.Text = Musicality.GetIntervalSingNotesText();
+                Musicality.PlayIntervalSingTarget();
                 buttonGo.Enabled = true;
                 secondTimer.Start();
             }
         }
+
+        private void buttonHearRange_Click(object sender, EventArgs e)
+        {
+            if (!Musicality.IsPlaying)
+            {
+                int middleNote = comboBoxNote.SelectedIndex + comboBoxOctave.SelectedIndex * 12 + 36;
+                Musicality.PlayNotes(middleNote - 6, middleNote - 2, middleNote + 1, middleNote + 6);
+                secondTimer.Start();
+            }
+        }
+
         private void secondTimer_Tick(object sender, EventArgs e)
         {
             Musicality.Tick();
@@ -57,6 +66,5 @@ namespace Musicality
                 secondTimer.Stop();
             }
         }
-
     }
 }

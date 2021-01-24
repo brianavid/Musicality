@@ -1,7 +1,7 @@
 ﻿
 namespace Musicality
 {
-    partial class Form1
+    partial class SequenceSingForm
     {
         /// <summary>
         /// Required designer variable.
