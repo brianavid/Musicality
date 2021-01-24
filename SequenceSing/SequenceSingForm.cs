@@ -21,7 +21,7 @@ namespace Musicality
                 buttonAgain.Enabled = true;
                 buttonAnswer.Enabled = true;
                 buttonGo.Enabled = false;
-                secondTimer.Start();
+                notePlayTimer.Start();
             }
         }
 
@@ -30,7 +30,7 @@ namespace Musicality
             if (!Musicality.IsPlaying)
             {
                 Musicality.ReplayStartNotes();
-                secondTimer.Start();
+                notePlayTimer.Start();
             }
         }
 
@@ -40,7 +40,7 @@ namespace Musicality
             {
                 Musicality.PlaySequenceSingTarget();
                 buttonGo.Enabled = true;
-                secondTimer.Start();
+                notePlayTimer.Start();
             }
         }
         private void secondTimer_Tick(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace Musicality
             Musicality.Tick();
             if (!Musicality.IsPlaying)
             {
-                secondTimer.Stop();
+                notePlayTimer.Stop();
             }
         }
 

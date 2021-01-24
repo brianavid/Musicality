@@ -282,6 +282,10 @@ namespace Musicality
                 currentNote = 0;
                 IsPlaying = false;
             }
+            else
+            {
+                IsPlaying = false;
+            }
         }
 
     }

@@ -35,7 +35,7 @@ namespace Musicality
             this.buttonAgain = new System.Windows.Forms.Button();
             this.buttonAnswer = new System.Windows.Forms.Button();
             this.buttonGo = new System.Windows.Forms.Button();
-            this.secondTimer = new System.Windows.Forms.Timer(this.components);
+            this.notePlayTimer = new System.Windows.Forms.Timer(this.components);
             this.checkBoxFullOctave = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
@@ -91,8 +91,8 @@ namespace Musicality
             // 
             // secondTimer
             // 
-            this.secondTimer.Interval = 1000;
-            this.secondTimer.Tick += new System.EventHandler(this.secondTimer_Tick);
+            this.notePlayTimer.Interval = 1000;
+            this.notePlayTimer.Tick += new System.EventHandler(this.secondTimer_Tick);
             // 
             // checkBoxFullOctave
             // 
@@ -129,7 +129,7 @@ namespace Musicality
         private System.Windows.Forms.Button buttonAgain;
         private System.Windows.Forms.Button buttonAnswer;
         private System.Windows.Forms.Button buttonGo;
-        private System.Windows.Forms.Timer secondTimer;
+        private System.Windows.Forms.Timer notePlayTimer;
         private System.Windows.Forms.CheckBox checkBoxFullOctave;
     }
 }

@@ -24,7 +24,7 @@ namespace Musicality
                 buttonAgain.Enabled = true;
                 buttonAnswer.Enabled = true;
                 buttonGo.Enabled = false;
-                secondTimer.Start();
+                notePlayTimer.Start();
             }
         }
 
@@ -33,7 +33,7 @@ namespace Musicality
             if (!Musicality.IsPlaying)
             {
                 Musicality.ReplayStartNotes();
-                secondTimer.Start();
+                notePlayTimer.Start();
             }
         }
 
@@ -44,7 +44,7 @@ namespace Musicality
                 textBoxNotes.Text = Musicality.GetIntervalSingNotesText();
                 Musicality.PlayIntervalSingTarget();
                 buttonGo.Enabled = true;
-                secondTimer.Start();
+                notePlayTimer.Start();
             }
         }
 
@@ -54,7 +54,7 @@ namespace Musicality
             {
                 int middleNote = comboBoxNote.SelectedIndex + comboBoxOctave.SelectedIndex * 12 + 36;
                 Musicality.PlayNotes(middleNote - 6, middleNote - 2, middleNote + 1, middleNote + 6);
-                secondTimer.Start();
+                notePlayTimer.Start();
             }
         }
 
@@ -63,7 +63,7 @@ namespace Musicality
             Musicality.Tick();
             if (!Musicality.IsPlaying)
             {
-                secondTimer.Stop();
+                notePlayTimer.Stop();
             }
         }
     }
