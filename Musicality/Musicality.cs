@@ -101,18 +101,17 @@ namespace Musicality
             PlayNotes(startNotes);
         }
 
-        public static void BuildSequenceToSing(bool fullOctave)
+        static List<int> MakeNoteSequence(bool fullOctave, int length)
         {
-            targetNotes = new List<int>();
-            var instructionsSB = new StringBuilder("This is C. Sing");
+            var notes = new List<int>();
             int lastNote = 0;
-            var sequenceNote = fullOctave ? FullSequenceNotes : ShortSequenceNotes;
-            int lastInSequence = random.Next(0, sequenceNote.Length);
-            bool goingUp = lastInSequence < sequenceNote.Length / 2;
+            var sequenceNotes = fullOctave ? FullSequenceNotes : ShortSequenceNotes;
+            int lastInSequence = random.Next(0, sequenceNotes.Length);
+            bool goingUp = lastInSequence < sequenceNotes.Length / 2;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < length; i++)
             {
-                int nextSequence;
+                int nextNoteInSequence;
                 int nextNote;
 
                 if (random.Next(0, 4) == 0)
@@ -125,40 +124,52 @@ namespace Musicality
                     case 1:
                     case 2:
                     case 3:
-                        nextSequence = goingUp ? lastInSequence + 1 : lastInSequence - 1;
+                        nextNoteInSequence = goingUp ? lastInSequence + 1 : lastInSequence - 1;
                         break;
                     case 4:
                     case 5:
                     case 6:
-                        nextSequence = goingUp ? lastInSequence + 2 : lastInSequence - 2;
+                        nextNoteInSequence = goingUp ? lastInSequence + 2 : lastInSequence - 2;
                         break;
                     case 7:
                     case 8:
-                        nextSequence = goingUp ? lastInSequence + 3 : lastInSequence - 3;
+                        nextNoteInSequence = goingUp ? lastInSequence + 3 : lastInSequence - 3;
                         break;
                     default:
-                        nextSequence = random.Next(0, sequenceNote.Length);
+                        nextNoteInSequence = random.Next(0, sequenceNotes.Length);
                         break;
                 }
 
-                if (nextSequence < 0 || nextSequence >= sequenceNote.Length)
+                if (nextNoteInSequence < 0 || nextNoteInSequence >= sequenceNotes.Length)
                 {
-                    nextSequence = random.Next(0, sequenceNote.Length);
+                    nextNoteInSequence = random.Next(0, sequenceNotes.Length);
                 }
 
-                goingUp = nextSequence > lastInSequence;
-                lastInSequence = nextSequence;
-                nextNote = sequenceNote[nextSequence];
+                goingUp = nextNoteInSequence > lastInSequence;
+                lastInSequence = nextNoteInSequence;
+                nextNote = sequenceNotes[nextNoteInSequence];
 
                 if (nextNote != lastNote)
                 {
-                    targetNotes.Add(nextNote);
-                    instructionsSB.AppendFormat(" {0}{1}", NoteNames[nextNote % 12].Name1,
-                                                           fullOctave && nextNote >= 60 ? "'" : "");
+                    notes.Add(nextNote);
                     lastNote = nextNote;
                 }
             }
+
+            return notes;
+        }
+
+        public static void BuildSequenceToSing(bool fullOctave)
+        {
+            targetNotes = MakeNoteSequence(fullOctave, 10);
+            var instructionsSB = new StringBuilder("This is C. Sing");
+            foreach (var note in targetNotes)
+            {
+                instructionsSB.AppendFormat(" {0}{1}", NoteNames[note % 12].Name1,
+                                                    fullOctave && note >= 60 ? "'" : "");
+            }
             Instructions = instructionsSB.ToString();
+            
             startNote = 60;
             startNotes = new List<int> { 48, 60 };
             PlayNotes(startNotes);
