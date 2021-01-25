@@ -14,7 +14,7 @@ namespace Musicality
         {
             if (!Musicality.IsPlaying)
             {
-                notePlayTimer.Interval = radioButtonFast.Checked ? 1000 : radioButtonMedium.Checked ? 1500 : 5000;
+                notePlayTimer.Interval = radioButtonFast.Checked ? 1000 : radioButtonMedium.Checked ? 1500 : 2000;
                 Musicality.PlaySequence();
                 instructions.Text = "Write down this sequence (after an initial C)";
                 buttonAgain.Enabled = true;
@@ -28,7 +28,7 @@ namespace Musicality
         {
             if (!Musicality.IsPlaying)
             {
-                notePlayTimer.Interval = radioButtonFast.Checked ? 1000 : radioButtonMedium.Checked ? 1500 : 5000;
+                notePlayTimer.Interval = radioButtonFast.Checked ? 1000 : radioButtonMedium.Checked ? 1500 : 2000;
                 Musicality.ReplayStartNotes();
                 notePlayTimer.Start();
             }
