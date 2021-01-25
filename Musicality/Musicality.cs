@@ -189,7 +189,7 @@ namespace Musicality
 
         public static void PlaySequenceSingTarget()
         {
-            PlayNotes(new List<int>(targetNotes));
+            PlayNotes(targetNotes);
         }
 
         public static string GetIntervalSingNotesText()
@@ -240,6 +240,23 @@ namespace Musicality
             return $"{nameStart} - {nameTarget}";
         }
 
+        public static void PlaySequence()
+        {
+            startNotes = new List<int> { 60, 0 }.Concat(MakeNoteSequence(true, 12)).ToList();
+            PlayNotes(startNotes);
+        }
+
+        public static string SequenceText()
+        {
+            var notes = startNotes.Skip(2);
+            StringBuilder sb = new StringBuilder();
+            foreach (var note in notes)
+            {
+                sb.AppendFormat("{0}{1} ", NoteNames[note % 12].Name1, note >= 60 ? "'" : "");
+            }
+            return sb.ToString();
+        }
+
         static void PlayNote(int note)
         {
             if (!IsPlaying)
@@ -252,7 +269,7 @@ namespace Musicality
 
         public static void PlayNotes(params int[] notes)
         {
-            PlayNotes(notes);
+            PlayNotes(notes.ToList());
         }
 
         static void PlayNotes(List<int> notes)
@@ -263,7 +280,10 @@ namespace Musicality
                 currentNotes = new List<int>(notes);
                 currentNote = currentNotes[0];
                 currentNotes.RemoveAt(0);
-                MidiPlayer.PlayNote(currentNote);
+                if (currentNote != 0)
+                {
+                    MidiPlayer.PlayNote(currentNote);
+                }
             }
         }
 
@@ -271,19 +291,24 @@ namespace Musicality
         {
             if (currentNotes != null && currentNotes.Any())
             {
-                MidiPlayer.StopNote(currentNote);
+                if (currentNote != 0)
+                {
+                    MidiPlayer.StopNote(currentNote);
+                }
                 currentNote = currentNotes[0];
                 currentNotes.RemoveAt(0);
-                MidiPlayer.PlayNote(currentNote);
-            }
-            else if (currentNote != 0)
-            {
-                MidiPlayer.StopNote(currentNote);
-                currentNote = 0;
-                IsPlaying = false;
+                if (currentNote != 0)
+                {
+                    MidiPlayer.PlayNote(currentNote);
+                }
             }
             else
             {
+                if (currentNote != 0)
+                {
+                    MidiPlayer.StopNote(currentNote);
+                }
+                currentNote = 0;
                 IsPlaying = false;
             }
         }
