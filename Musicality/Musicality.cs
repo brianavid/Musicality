@@ -240,9 +240,9 @@ namespace Musicality
             return $"{nameStart} - {nameTarget}";
         }
 
-        public static void PlaySequence()
+        public static void PlaySequence(int length)
         {
-            startNotes = new List<int> { 60, 0 }.Concat(MakeNoteSequence(true, 12)).ToList();
+            startNotes = new List<int> { 60, 0 }.Concat(MakeNoteSequence(true, length)).ToList();
             PlayNotes(startNotes);
         }
 

@@ -15,8 +15,9 @@ namespace Musicality
             if (!Musicality.IsPlaying)
             {
                 notePlayTimer.Interval = radioButtonFast.Checked ? 1000 : radioButtonMedium.Checked ? 1500 : 2000;
-                Musicality.PlaySequence();
+                Musicality.PlaySequence(Convert.ToInt32(numericUpDownLength.Value));
                 instructions.Text = "Write down this sequence (after an initial C)";
+                textBoxAnswer.Text = "";
                 buttonAgain.Enabled = true;
                 buttonAnswer.Enabled = true;
                 buttonGo.Enabled = false;
