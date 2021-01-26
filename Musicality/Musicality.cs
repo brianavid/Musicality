@@ -16,12 +16,12 @@ namespace Musicality
             public int Sharps;
         }
 
-        static int currentNote;
-        static List<int> currentNotes;
+        static List<int> currentChord;
+        static List<List<int>> currentChords;
         static int startNote;
         static int targetNote;
-        static List<int> startNotes;
-        static List<int> targetNotes;
+        static List<List<int>> startChords;
+        static List<List<int>> targetChords;
         static int interval;
 
         public static string Instructions { get; private set; }
@@ -98,8 +98,8 @@ namespace Musicality
             if (interval <= 0) interval--;
             startNote = targetNote - interval;
             Instructions = $"Sing a {intervalName[interval]} from ...";
-            startNotes = new List<int> { startNote };
-            PlayNotes(startNotes);
+            startChords = new List<List<int>> { new List<int> { startNote } };
+            PlayChords(startChords);
         }
 
         static List<int> MakeNoteSequence(bool fullOctave, int length)
@@ -162,24 +162,24 @@ namespace Musicality
 
         public static void BuildSequenceToSing(bool fullOctave)
         {
-            targetNotes = MakeNoteSequence(fullOctave, 10);
+            targetChords = MakeNoteSequence(fullOctave, 10).Select(n => new List<int> { n }).ToList();
 
             var instructionsSB = new StringBuilder("This is C. Sing");
-            foreach (var note in targetNotes)
+            foreach (var note in targetChords)
             {
-                instructionsSB.AppendFormat(" {0}{1}", NoteNames[note % 12].Name1,
-                                                    fullOctave && note >= 60 ? "'" : "");
+                instructionsSB.AppendFormat(" {0}{1}", NoteNames[note[0] % 12].Name1,
+                                                    fullOctave && note[0] >= 60 ? "'" : "");
             }
             Instructions = instructionsSB.ToString();
-            
+
             startNote = 60;
-            startNotes = new List<int> { 48, 60 };
-            PlayNotes(startNotes);
+            startChords = new List<List<int>> { new List<int> { 48 }, new List<int> { 60 } };
+            PlayChords(startChords);
         }
 
         public static void ReplayStartNotes()
         {
-            PlayNotes(startNotes);
+            PlayChords(startChords);
         }
 
         public static void PlayIntervalSingTarget()
@@ -189,7 +189,7 @@ namespace Musicality
 
         public static void PlaySequenceSingTarget()
         {
-            PlayNotes(targetNotes);
+            PlayChords(targetChords);
         }
 
         public static string GetIntervalSingNotesText()
@@ -242,17 +242,19 @@ namespace Musicality
 
         public static void PlaySequence(int length)
         {
-            startNotes = new List<int> { 60, 0 }.Concat(MakeNoteSequence(true, length)).ToList();
-            PlayNotes(startNotes);
+            startChords = new List<List<int>> { new List<int> { 60, 48 }, null }.
+                        Concat(MakeNoteSequence(true, length).
+                        Select(n => n == 0 ? null : new List<int> { n })).ToList();
+            PlayChords(startChords);
         }
 
         public static string SequenceText()
         {
-            var notes = startNotes.Skip(2);
+            var notes = startChords.Skip(2);
             StringBuilder sb = new StringBuilder();
             foreach (var note in notes)
             {
-                sb.AppendFormat("{0}{1} ", NoteNames[note % 12].Name1, note >= 60 ? "'" : "");
+                sb.AppendFormat("{0}{1} ", NoteNames[note[0] % 12].Name1, note[0] >= 60 ? "'" : "");
             }
             return sb.ToString();
         }
@@ -262,53 +264,65 @@ namespace Musicality
             if (!IsPlaying)
             {
                 IsPlaying = true;
-                currentNote = note;
-                MidiPlayer.PlayNote(currentNote);
+                currentChord = new List<int> { note };
+                MidiPlayer.PlayNote(note);
             }
         }
 
         public static void PlayNotes(params int[] notes)
         {
-            PlayNotes(notes.ToList());
+            PlayChords(notes.Select(n => new List<int> { n }).ToList());
         }
 
-        static void PlayNotes(List<int> notes)
+        static void PlayChords(List<List<int>> chords)
         {
             if (!IsPlaying)
             {
                 IsPlaying = true;
-                currentNotes = new List<int>(notes);
-                currentNote = currentNotes[0];
-                currentNotes.RemoveAt(0);
-                if (currentNote != 0)
+                currentChords = new List <List<int>> (chords);
+                currentChord = currentChords[0];
+                currentChords.RemoveAt(0);
+                if (currentChord != null && currentChord.Any())
                 {
-                    MidiPlayer.PlayNote(currentNote);
+                    foreach (var note in currentChord)
+                    {
+                        MidiPlayer.PlayNote(note);
+                    }
                 }
             }
         }
 
         public static void Tick()
         {
-            if (currentNotes != null && currentNotes.Any())
+            if (currentChords != null && currentChords.Any())
             {
-                if (currentNote != 0)
+                if (currentChord != null && currentChord.Any())
                 {
-                    MidiPlayer.StopNote(currentNote);
+                    foreach (var note in currentChord)
+                    {
+                        MidiPlayer.StopNote(note);
+                    }
                 }
-                currentNote = currentNotes[0];
-                currentNotes.RemoveAt(0);
-                if (currentNote != 0)
+                currentChord = currentChords[0];
+                currentChords.RemoveAt(0);
+                if (currentChord != null && currentChord.Any())
                 {
-                    MidiPlayer.PlayNote(currentNote);
+                    foreach (var note in currentChord)
+                    {
+                        MidiPlayer.PlayNote(note);
+                    }
                 }
             }
             else
             {
-                if (currentNote != 0)
+                if (currentChord != null && currentChord.Any())
                 {
-                    MidiPlayer.StopNote(currentNote);
+                    foreach (var note in currentChord)
+                    {
+                        MidiPlayer.StopNote(note);
+                    }
                 }
-                currentNote = 0;
+                currentChord = null;
                 IsPlaying = false;
             }
         }
