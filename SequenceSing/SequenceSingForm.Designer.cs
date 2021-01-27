@@ -42,7 +42,7 @@ namespace Musicality
             // textBoxNotes
             // 
             this.textBoxNotes.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxNotes.Location = new System.Drawing.Point(116, 70);
+            this.textBoxNotes.Location = new System.Drawing.Point(149, 92);
             this.textBoxNotes.Name = "textBoxNotes";
             this.textBoxNotes.ReadOnly = true;
             this.textBoxNotes.Size = new System.Drawing.Size(47, 13);
@@ -51,16 +51,17 @@ namespace Musicality
             // 
             // instructions
             // 
-            this.instructions.Location = new System.Drawing.Point(12, 41);
+            this.instructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.instructions.Location = new System.Drawing.Point(12, 45);
             this.instructions.Name = "instructions";
             this.instructions.ReadOnly = true;
-            this.instructions.Size = new System.Drawing.Size(256, 20);
+            this.instructions.Size = new System.Drawing.Size(323, 22);
             this.instructions.TabIndex = 19;
             // 
             // buttonAgain
             // 
             this.buttonAgain.Enabled = false;
-            this.buttonAgain.Location = new System.Drawing.Point(11, 67);
+            this.buttonAgain.Location = new System.Drawing.Point(11, 83);
             this.buttonAgain.Name = "buttonAgain";
             this.buttonAgain.Size = new System.Drawing.Size(75, 23);
             this.buttonAgain.TabIndex = 18;
@@ -71,7 +72,7 @@ namespace Musicality
             // buttonAnswer
             // 
             this.buttonAnswer.Enabled = false;
-            this.buttonAnswer.Location = new System.Drawing.Point(193, 65);
+            this.buttonAnswer.Location = new System.Drawing.Point(259, 81);
             this.buttonAnswer.Name = "buttonAnswer";
             this.buttonAnswer.Size = new System.Drawing.Size(75, 23);
             this.buttonAnswer.TabIndex = 17;
@@ -89,7 +90,7 @@ namespace Musicality
             this.buttonGo.UseVisualStyleBackColor = true;
             this.buttonGo.Click += new System.EventHandler(this.buttonGo_Click);
             // 
-            // secondTimer
+            // notePlayTimer
             // 
             this.notePlayTimer.Interval = 1000;
             this.notePlayTimer.Tick += new System.EventHandler(this.secondTimer_Tick);
@@ -97,25 +98,25 @@ namespace Musicality
             // checkBoxFullOctave
             // 
             this.checkBoxFullOctave.AutoSize = true;
-            this.checkBoxFullOctave.Location = new System.Drawing.Point(188, 12);
+            this.checkBoxFullOctave.Location = new System.Drawing.Point(254, 12);
             this.checkBoxFullOctave.Name = "checkBoxFullOctave";
             this.checkBoxFullOctave.Size = new System.Drawing.Size(80, 17);
             this.checkBoxFullOctave.TabIndex = 21;
             this.checkBoxFullOctave.Text = "Full Octave";
             this.checkBoxFullOctave.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // SequenceSingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(290, 120);
+            this.ClientSize = new System.Drawing.Size(347, 120);
             this.Controls.Add(this.checkBoxFullOctave);
             this.Controls.Add(this.textBoxNotes);
             this.Controls.Add(this.instructions);
             this.Controls.Add(this.buttonAgain);
             this.Controls.Add(this.buttonAnswer);
             this.Controls.Add(this.buttonGo);
-            this.Name = "Form1";
+            this.Name = "SequenceSingForm";
             this.Text = "Sequence Sing";
             this.ResumeLayout(false);
             this.PerformLayout();

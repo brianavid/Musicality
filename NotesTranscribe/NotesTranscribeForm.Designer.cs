@@ -41,6 +41,7 @@ namespace Musicality
             this.notePlayTimer = new System.Windows.Forms.Timer(this.components);
             this.radioButtonMedium = new System.Windows.Forms.RadioButton();
             this.numericUpDownLength = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLength)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +58,7 @@ namespace Musicality
             // buttonAnswer
             // 
             this.buttonAnswer.Enabled = false;
-            this.buttonAnswer.Location = new System.Drawing.Point(193, 65);
+            this.buttonAnswer.Location = new System.Drawing.Point(260, 71);
             this.buttonAnswer.Name = "buttonAnswer";
             this.buttonAnswer.Size = new System.Drawing.Size(75, 23);
             this.buttonAnswer.TabIndex = 23;
@@ -68,7 +69,7 @@ namespace Musicality
             // buttonAgain
             // 
             this.buttonAgain.Enabled = false;
-            this.buttonAgain.Location = new System.Drawing.Point(11, 67);
+            this.buttonAgain.Location = new System.Drawing.Point(11, 73);
             this.buttonAgain.Name = "buttonAgain";
             this.buttonAgain.Size = new System.Drawing.Size(75, 23);
             this.buttonAgain.TabIndex = 24;
@@ -78,16 +79,17 @@ namespace Musicality
             // 
             // instructions
             // 
+            this.instructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.instructions.Location = new System.Drawing.Point(12, 41);
             this.instructions.Name = "instructions";
             this.instructions.ReadOnly = true;
-            this.instructions.Size = new System.Drawing.Size(256, 20);
+            this.instructions.Size = new System.Drawing.Size(323, 22);
             this.instructions.TabIndex = 25;
             // 
             // textBoxNotes
             // 
             this.textBoxNotes.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxNotes.Location = new System.Drawing.Point(116, 70);
+            this.textBoxNotes.Location = new System.Drawing.Point(116, 76);
             this.textBoxNotes.Name = "textBoxNotes";
             this.textBoxNotes.ReadOnly = true;
             this.textBoxNotes.Size = new System.Drawing.Size(47, 13);
@@ -97,7 +99,7 @@ namespace Musicality
             // radioButtonSlow
             // 
             this.radioButtonSlow.AutoSize = true;
-            this.radioButtonSlow.Location = new System.Drawing.Point(136, 12);
+            this.radioButtonSlow.Location = new System.Drawing.Point(194, 12);
             this.radioButtonSlow.Name = "radioButtonSlow";
             this.radioButtonSlow.Size = new System.Drawing.Size(48, 17);
             this.radioButtonSlow.TabIndex = 27;
@@ -107,7 +109,7 @@ namespace Musicality
             // radioButtonFast
             // 
             this.radioButtonFast.AutoSize = true;
-            this.radioButtonFast.Location = new System.Drawing.Point(232, 12);
+            this.radioButtonFast.Location = new System.Drawing.Point(290, 12);
             this.radioButtonFast.Name = "radioButtonFast";
             this.radioButtonFast.Size = new System.Drawing.Size(45, 17);
             this.radioButtonFast.TabIndex = 28;
@@ -116,10 +118,11 @@ namespace Musicality
             // 
             // textBoxAnswer
             // 
-            this.textBoxAnswer.Location = new System.Drawing.Point(11, 97);
+            this.textBoxAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxAnswer.Location = new System.Drawing.Point(11, 109);
             this.textBoxAnswer.Name = "textBoxAnswer";
             this.textBoxAnswer.ReadOnly = true;
-            this.textBoxAnswer.Size = new System.Drawing.Size(257, 20);
+            this.textBoxAnswer.Size = new System.Drawing.Size(324, 22);
             this.textBoxAnswer.TabIndex = 29;
             // 
             // notePlayTimer
@@ -131,7 +134,7 @@ namespace Musicality
             // 
             this.radioButtonMedium.AutoSize = true;
             this.radioButtonMedium.Checked = true;
-            this.radioButtonMedium.Location = new System.Drawing.Point(185, 12);
+            this.radioButtonMedium.Location = new System.Drawing.Point(243, 12);
             this.radioButtonMedium.Name = "radioButtonMedium";
             this.radioButtonMedium.Size = new System.Drawing.Size(46, 17);
             this.radioButtonMedium.TabIndex = 30;
@@ -141,7 +144,7 @@ namespace Musicality
             // 
             // numericUpDownLength
             // 
-            this.numericUpDownLength.Location = new System.Drawing.Point(94, 13);
+            this.numericUpDownLength.Location = new System.Drawing.Point(152, 13);
             this.numericUpDownLength.Maximum = new decimal(new int[] {
             20,
             0,
@@ -156,11 +159,21 @@ namespace Musicality
             0,
             0});
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(106, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(40, 13);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "Length";
+            // 
             // NotesTranscribeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(280, 132);
+            this.ClientSize = new System.Drawing.Size(350, 150);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDownLength);
             this.Controls.Add(this.radioButtonMedium);
             this.Controls.Add(this.textBoxAnswer);
@@ -192,6 +205,7 @@ namespace Musicality
         private System.Windows.Forms.Timer notePlayTimer;
         private System.Windows.Forms.RadioButton radioButtonMedium;
         private System.Windows.Forms.NumericUpDown numericUpDownLength;
+        private System.Windows.Forms.Label label1;
     }
 }
 
