@@ -110,7 +110,7 @@ namespace Musicality
             int lastInSequence = random.Next(0, sequenceNotes.Length);
             bool goingUp = lastInSequence < sequenceNotes.Length / 2;
 
-            for (int i = 0; i < length; i++)
+            while (notes.Count < length)
             {
                 int nextNoteInSequence;
                 int nextNote;
@@ -160,9 +160,9 @@ namespace Musicality
             return notes;
         }
 
-        public static void BuildSequenceToSing(bool fullOctave)
+        public static void BuildSequenceToSing(bool fullOctave, int length=10)
         {
-            targetChords = MakeNoteSequence(fullOctave, 10).Select(n => new List<int> { n }).ToList();
+            targetChords = MakeNoteSequence(fullOctave, length).Select(n => new List<int> { n }).ToList();
 
             var instructionsSB = new StringBuilder("This is C. Sing");
             foreach (var note in targetChords)

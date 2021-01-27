@@ -81,4 +81,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)$(TargetfileName)" "$(SolutionDir)MusicalityFiles"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
