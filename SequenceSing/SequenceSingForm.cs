@@ -9,13 +9,16 @@ namespace Musicality
         {
             Musicality.Initialise();
             InitializeComponent();
+            comboBoxNote.SelectedItem = "C";
+            comboBoxOctave.SelectedItem = "3";
         }
 
         private void buttonGo_Click(object sender, EventArgs e)
         {
             if (!Musicality.IsPlaying)
             {
-                Musicality.BuildSequenceToSing(checkBoxFullOctave.Checked);
+                int lowNote = comboBoxNote.SelectedIndex + comboBoxOctave.SelectedIndex * 12 + 36;
+                Musicality.BuildSequenceToSing(lowNote, checkBoxFullOctave.Checked);
                 instructions.Text = Musicality.Instructions;
                 textBoxNotes.Text = "";
                 buttonAgain.Enabled = true;
@@ -52,5 +55,14 @@ namespace Musicality
             }
         }
 
+        private void buttonHearRange_Click(object sender, EventArgs e)
+        {
+            if (!Musicality.IsPlaying)
+            {
+                int lowNote = comboBoxNote.SelectedIndex + comboBoxOctave.SelectedIndex * 12 + 36;
+                Musicality.PlayNotes(lowNote, lowNote + 4, lowNote + 7, lowNote + 12);
+                notePlayTimer.Start();
+            }
+        }
     }
 }

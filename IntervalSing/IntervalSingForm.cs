@@ -9,7 +9,7 @@ namespace Musicality
         {
             Musicality.Initialise();
             InitializeComponent();
-            comboBoxNote.SelectedItem = "A";
+            comboBoxNote.SelectedItem = "C";
             comboBoxOctave.SelectedItem = "3";
         }
 
@@ -17,8 +17,8 @@ namespace Musicality
         {
             if (!Musicality.IsPlaying)
             {
-                int middleNote = comboBoxNote.SelectedIndex + comboBoxOctave.SelectedIndex * 12 + 36;
-                Musicality.PickRandomIntervalToSing(middleNote);
+                int lowNote = comboBoxNote.SelectedIndex + comboBoxOctave.SelectedIndex * 12 + 36;
+                Musicality.PickRandomIntervalToSing(lowNote+6);
                 instructions.Text = Musicality.Instructions;
                 textBoxNotes.Text = "";
                 buttonAgain.Enabled = true;
@@ -52,8 +52,8 @@ namespace Musicality
         {
             if (!Musicality.IsPlaying)
             {
-                int middleNote = comboBoxNote.SelectedIndex + comboBoxOctave.SelectedIndex * 12 + 36;
-                Musicality.PlayNotes(middleNote - 6, middleNote - 2, middleNote + 1, middleNote + 6);
+                int lowNote = comboBoxNote.SelectedIndex + comboBoxOctave.SelectedIndex * 12 + 36;
+                Musicality.PlayNotes(lowNote, lowNote + 4, lowNote + 7, lowNote + 12);
                 notePlayTimer.Start();
             }
         }

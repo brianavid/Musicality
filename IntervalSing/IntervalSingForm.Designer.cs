@@ -47,10 +47,10 @@ namespace Musicality
             // 
             this.textBoxNotes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxNotes.Location = new System.Drawing.Point(151, 76);
+            this.textBoxNotes.Location = new System.Drawing.Point(129, 76);
             this.textBoxNotes.Name = "textBoxNotes";
             this.textBoxNotes.ReadOnly = true;
-            this.textBoxNotes.Size = new System.Drawing.Size(47, 17);
+            this.textBoxNotes.Size = new System.Drawing.Size(97, 17);
             this.textBoxNotes.TabIndex = 15;
             this.textBoxNotes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -64,7 +64,7 @@ namespace Musicality
             this.groupBox1.Size = new System.Drawing.Size(322, 62);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Range centered on";
+            this.groupBox1.Text = "Octave range starting from";
             // 
             // buttonHearRange
             // 

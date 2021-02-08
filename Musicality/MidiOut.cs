@@ -15,7 +15,6 @@ namespace Musicality
                     midiOut = new MidiOut(device);
                 }
             }
-
         }
 
         public static void PlayNote(int n)

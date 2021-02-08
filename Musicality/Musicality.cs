@@ -31,6 +31,7 @@ namespace Musicality
 
         static Dictionary<int, string> intervalName = new Dictionary<int, string>
         {
+            { -12, "octave down"},
             { -7, "perfect 5th down"},
             { -6, "tritone down"},
             { -5, "perfect 4th down"},
@@ -38,6 +39,7 @@ namespace Musicality
             { -3, "minor 3rd down"},
             { -2, "whole tone down"},
             { -1, "semitone down"},
+            { 12, "octave up"},
             { 7, "perfect 5th up"},
             { 6, "tritone up"},
             { 5, "perfect 4th up"},
@@ -50,6 +52,7 @@ namespace Musicality
         //  How many scale degrees for each interval
         static Dictionary<int, int> scaleDegrees = new Dictionary<int, int>
         {
+            { -12, 7},
             { -7, 4},
             { -6, 3},
             { -5, 3},
@@ -57,6 +60,7 @@ namespace Musicality
             { -3, 2},
             { -2, 1},
             { -1, 1},
+            { 12, 7},
             { 7, 4},
             { 6, 3},
             { 5, 3},
@@ -83,8 +87,8 @@ namespace Musicality
             new NoteName{ Name1="B", Degree1=6, Name2="B", Degree2=6 },
         };
 
-        static int[] ShortSequenceNotes = new int[] { 53, 55, 57, 59, 60 }; // F G A B C
-        static int[] FullSequenceNotes = new int[] { 48, 50, 52, 53, 55, 57, 59, 60 }; // C D E F G A B C
+        static int[] ShortSequenceNotes = new int[] { 5, 7, 9, 11, 12 }; // F G A B C
+        static int[] FullSequenceNotes = new int[] { 0, 2, 4, 5, 7, 9, 11, 12 }; // C D E F G A B C
 
         public static void Initialise()
         {
@@ -94,19 +98,21 @@ namespace Musicality
         public static void PickRandomIntervalToSing(int middleNote)
         {
             targetNote = random.Next(middleNote - 6, middleNote + 6);
-            interval = random.Next(-6, 8);
+            interval = random.Next(-7, 9);
             if (interval <= 0) interval--;
+            if (interval < -7) interval = -12;
+            if (interval >  7) interval = 12;
             startNote = targetNote - interval;
             Instructions = $"Sing a {intervalName[interval]} from ...";
             startChords = new List<List<int>> { new List<int> { startNote } };
             PlayChords(startChords);
         }
 
-        static List<int> MakeNoteSequence(bool fullOctave, int length)
+        static List<int> MakeNoteSequence(int lowNote, bool fullOctave, int length)
         {
             var notes = new List<int>();
             int lastNote = 0;
-            var sequenceNotes = fullOctave ? FullSequenceNotes : ShortSequenceNotes;
+            var sequenceNotes = (fullOctave ? FullSequenceNotes : ShortSequenceNotes).Select(n => n + lowNote).ToArray();
             int lastInSequence = random.Next(0, sequenceNotes.Length);
             bool goingUp = lastInSequence < sequenceNotes.Length / 2;
 
@@ -160,20 +166,21 @@ namespace Musicality
             return notes;
         }
 
-        public static void BuildSequenceToSing(bool fullOctave, int length=10)
+        public static void BuildSequenceToSing(int lowNote, bool fullOctave, int length=10)
         {
-            targetChords = MakeNoteSequence(fullOctave, length).Select(n => new List<int> { n }).ToList();
+            targetChords = MakeNoteSequence(lowNote, fullOctave, length).Select(n => new List<int> { n }).ToList();
 
-            var instructionsSB = new StringBuilder("This is C. Sing");
+            var lowNoteName = NoteNames[lowNote % 12].Name1;
+            var instructionsSB = new StringBuilder($"This is {lowNoteName}. Sing");
             foreach (var note in targetChords)
             {
                 instructionsSB.AppendFormat(" {0}{1}", NoteNames[note[0] % 12].Name1,
-                                                    fullOctave && note[0] >= 60 ? "'" : "");
+                                                       note[0] >= lowNote+12 ? "'" : "");
             }
             Instructions = instructionsSB.ToString();
 
             startNote = 60;
-            startChords = new List<List<int>> { new List<int> { 48 }, new List<int> { 60 } };
+            startChords = new List<List<int>> { new List<int> { lowNote }, new List<int> { lowNote+12 } };
             PlayChords(startChords);
         }
 
@@ -243,7 +250,7 @@ namespace Musicality
         public static void PlaySequence(int length)
         {
             startChords = new List<List<int>> { new List<int> { 60, 48 }, null }.
-                        Concat(MakeNoteSequence(true, length).
+                        Concat(MakeNoteSequence(48, true, length).
                         Select(n => n == 0 ? null : new List<int> { n })).ToList();
             PlayChords(startChords);
         }
