@@ -21,6 +21,8 @@ namespace Musicality
         static int startNote;
         static int targetNote;
         static List<List<int>> startChords;
+        private static string startChordName1;
+        private static string startChordName2;
         static List<List<int>> targetChords;
         static int interval;
 
@@ -90,6 +92,16 @@ namespace Musicality
         static int[] ShortSequenceNotes = new int[] { 5, 7, 9, 11, 12 }; // F G A B C
         static int[] FullSequenceNotes = new int[] { 0, 2, 4, 5, 7, 9, 11, 12 }; // C D E F G A B C
 
+        static (int, int, int, bool isMajor)[] TriadIntervals = new [] 
+        {
+            ( 0, 3, 7, true ),
+            ( 0, 4, 7, false ),
+            ( 8, 0, 3, false ),
+            ( 9, 0, 4, true ),
+            ( 5, 8, 0, true ),
+            ( 5, 9, 0, false ),
+        };
+
         public static void Initialise()
         {
             MidiPlayer.Initialise();
@@ -101,11 +113,37 @@ namespace Musicality
             interval = random.Next(-7, 9);
             if (interval <= 0) interval--;
             if (interval < -7) interval = -12;
-            if (interval >  7) interval = 12;
+            if (interval > 7) interval = 12;
             startNote = targetNote - interval;
             Instructions = $"Sing a {intervalName[interval]} from ...";
             startChords = new List<List<int>> { new List<int> { startNote } };
+            startChordName1 = "";
+            startChordName2 = "";
             PlayChords(startChords);
+        }
+
+        public static void PickRandomChordIntervalToSing(int middleNote)
+        {
+            targetNote = random.Next(middleNote - 6, middleNote + 6);
+            interval = random.Next(0, 2) * 2 + 5;
+            startNote = targetNote - interval;
+            Instructions = $"Sing a {intervalName[interval]} from ...";
+            var triadIntervals = TriadIntervals[random.Next(0, 6)];
+            startChords = new List<List<int>> { new List<int> { 
+                startNote + 12 - triadIntervals.Item1,
+                startNote + 12 - triadIntervals.Item2,
+                startNote + 12 - triadIntervals.Item3 } };
+            startChordName1 = MakeChordName(startNote, triadIntervals.Item3, triadIntervals.isMajor, true);
+            startChordName2 = MakeChordName(startNote, triadIntervals.Item3, triadIntervals.isMajor, false);
+            PlayChords(startChords);
+        }
+
+        private static string MakeChordName(int startNote, int intervalToRoot, bool isMajor, bool firstName)
+        {
+            var root = (startNote + 12 - intervalToRoot) % 12;
+            var minorIndicator = isMajor ? "maj" : "min";
+            var chordRootName = NoteNames[root];
+            return firstName ? $"({chordRootName.Name1}{minorIndicator}) " : $"({chordRootName.Name2}{minorIndicator}) ";
         }
 
         static List<int> MakeNoteSequence(int lowNote, bool fullOctave, int length)
@@ -206,6 +244,7 @@ namespace Musicality
             var nnTarget = NoteNames[targetNote % 12];
             string nameStart;
             string nameTarget;
+            string startChordName = startChordName1;
             if (nnStart.Degree1 == nnStart.Degree2)
             {
                 nameStart = nnStart.Name1;
@@ -217,6 +256,7 @@ namespace Musicality
                         scaleDegrees[interval] == (nnTarget.Degree2 + 7 - nnStart.Degree1) % 7)
                     {
                         nameTarget = nnTarget.Name2;
+                        startChordName = startChordName2;
                     }
                 }
             }
@@ -229,6 +269,7 @@ namespace Musicality
                     scaleDegrees[interval] == (nnTarget.Degree1 + 7 - nnStart.Degree2) % 7)
                 {
                     nameStart = nnStart.Name2;
+                    startChordName = startChordName2;
                 }
             }
             else
@@ -237,6 +278,7 @@ namespace Musicality
                 {
                     nameStart = nnStart.Name2;
                     nameTarget = nnTarget.Name2;
+                    startChordName = startChordName2;
                 }
                 else
                 {
@@ -244,7 +286,7 @@ namespace Musicality
                     nameTarget = nnTarget.Name1;
                 }
             }
-            return $"{nameStart} - {nameTarget}";
+            return $"{startChordName}{nameStart} - {nameTarget}";
         }
 
         public static void PlaySequence(int length)

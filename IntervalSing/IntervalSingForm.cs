@@ -18,7 +18,14 @@ namespace Musicality
             if (!Musicality.IsPlaying)
             {
                 int lowNote = comboBoxNote.SelectedIndex + comboBoxOctave.SelectedIndex * 12 + 36;
-                Musicality.PickRandomIntervalToSing(lowNote+6);
+                if (checkBoxPlayChord.Checked)
+                {
+                    Musicality.PickRandomChordIntervalToSing(lowNote + 6);
+                }
+                else
+                {
+                    Musicality.PickRandomIntervalToSing(lowNote + 6);
+                }
                 instructions.Text = Musicality.Instructions;
                 textBoxNotes.Text = "";
                 buttonAgain.Enabled = true;
