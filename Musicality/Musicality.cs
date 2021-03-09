@@ -51,6 +51,22 @@ namespace Musicality
             { 1, "semitone up"},
         };
 
+        static Dictionary<int, string> shortIntervalName = new Dictionary<int, string>
+        {
+            { 12, "Octave"},
+            { 11, "Maj 7th"},
+            { 10, "Min 7th"},
+            { 9, "Maj 6th"},
+            { 8, "Min 6th"},
+            { 7, "Perf 5th"},
+            { 6, "TriTone"},
+            { 5, "Perf 4th"},
+            { 4, "Maj 3rd"},
+            { 3, "Min 3rd"},
+            { 2, "Maj 2nd"},
+            { 1, "Min 2nd"},
+        };
+
         //  How many scale degrees for each interval
         static Dictionary<int, int> scaleDegrees = new Dictionary<int, int>
         {
@@ -63,6 +79,10 @@ namespace Musicality
             { -2, 1},
             { -1, 1},
             { 12, 7},
+            { 11, 6},
+            { 10, 5},
+            { 9, 5},
+            { 8, 4},
             { 7, 4},
             { 6, 3},
             { 5, 3},
@@ -137,6 +157,18 @@ namespace Musicality
             startChordName2 = MakeChordName(startNote, triadIntervals.Item3, triadIntervals.isMajor, false);
             PlayChords(startChords);
         }
+
+        public static void PickRandomIntervalToRecognise(int middleNote)
+        {
+            interval = random.Next(1, 12);
+            startNote = random.Next(middleNote - 6 - interval / 2, middleNote + 6 - interval / 2);
+            targetNote = startNote + interval;
+            startChords = new List<List<int>> { new List<int> { startNote, targetNote } };
+            startChordName1 = shortIntervalName[interval] + " : ";
+            startChordName2 = startChordName1;
+            PlayChords(startChords);
+        }
+
 
         private static string MakeChordName(int startNote, int intervalToRoot, bool isMajor, bool firstName)
         {

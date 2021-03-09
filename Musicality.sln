@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesTranscribe", "NotesTra
 		{810CE5E6-5063-4FB5-854E-2D94B16E3877} = {810CE5E6-5063-4FB5-854E-2D94B16E3877}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntervalRecognition", "IntervalRecognition\IntervalRecognition.csproj", "{A8226EDA-041A-42AC-9BB2-1EB6404502DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7F2230BE-6B95-467A-A77F-C8618536AD5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F2230BE-6B95-467A-A77F-C8618536AD5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F2230BE-6B95-467A-A77F-C8618536AD5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8226EDA-041A-42AC-9BB2-1EB6404502DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8226EDA-041A-42AC-9BB2-1EB6404502DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8226EDA-041A-42AC-9BB2-1EB6404502DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8226EDA-041A-42AC-9BB2-1EB6404502DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
