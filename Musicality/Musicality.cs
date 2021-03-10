@@ -167,6 +167,7 @@ namespace Musicality
             startChordName1 = shortIntervalName[interval] + " : ";
             startChordName2 = startChordName1;
             PlayChords(startChords);
+            targetChords = new List<List<int>> { new List<int> { startNote }, new List<int> { targetNote } };
         }
 
 

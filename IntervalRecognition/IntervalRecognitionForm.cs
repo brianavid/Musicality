@@ -45,6 +45,7 @@ namespace Musicality
             {
                 textBoxNotes.Text = Musicality.GetIntervalSingNotesText();
                 buttonGo.Enabled = true;
+                Musicality.PlaySequenceSingTarget();
                 notePlayTimer.Start();
             }
         }
