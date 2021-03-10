@@ -289,6 +289,7 @@ namespace Musicality
                         scaleDegrees[interval] == (nnTarget.Degree2 + 7 - nnStart.Degree1) % 7)
                     {
                         nameTarget = nnTarget.Name2;
+                        startChordName = startChordName2;
                     }
                 }
             }
