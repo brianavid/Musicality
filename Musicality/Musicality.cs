@@ -80,7 +80,7 @@ namespace Musicality
             { -1, 1},
             { 12, 7},
             { 11, 6},
-            { 10, 5},
+            { 10, 6},
             { 9, 5},
             { 8, 4},
             { 7, 4},
@@ -288,7 +288,6 @@ namespace Musicality
                         scaleDegrees[interval] == (nnTarget.Degree2 + 7 - nnStart.Degree1) % 7)
                     {
                         nameTarget = nnTarget.Name2;
-                        startChordName = startChordName2;
                     }
                 }
             }
