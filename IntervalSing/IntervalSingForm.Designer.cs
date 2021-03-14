@@ -184,7 +184,7 @@ namespace Musicality
             this.Controls.Add(this.buttonAnswer);
             this.Controls.Add(this.buttonGo);
             this.Name = "IntervalSingForm";
-            this.Text = "Interval";
+            this.Text = "Interval Sing";
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
