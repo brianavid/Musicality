@@ -90,6 +90,7 @@ namespace Musicality
             { 3, 2},
             { 2, 1},
             { 1, 1},
+            { 0, 0},
         };
 
         //  What are the note names, giving enharmonics where needed
@@ -158,9 +159,27 @@ namespace Musicality
             PlayChords(startChords);
         }
 
+        public static void PickRandomNoteToSingfromA(int middleNote)
+        {
+            targetNote = random.Next(middleNote - 6, middleNote + 6);
+            var targetNoteName = NoteNames[targetNote % 12];
+            var targetNoteNameName = targetNoteName.Sharps <= 3 ? targetNoteName.Name1 : targetNoteName.Name2;
+            startNote = 69;
+            interval = ((targetNote%12) - (startNote%12) + 12) % 12;
+            if (interval > 6)
+            {
+                interval = interval - 12;
+            }
+            Instructions = $"This is A. Sing a {targetNoteNameName}";
+            startChords = new List<List<int>> { new List<int> { startNote } };
+            startChordName1 = "";
+            startChordName2 = "";
+            PlayChords(startChords);
+        }
+
         public static void PickRandomIntervalToRecognise(int middleNote)
         {
-            interval = random.Next(1, 12);
+            interval = random.Next(1, 13);
             startNote = random.Next(middleNote - 6 - interval / 2, middleNote + 6 - interval / 2);
             targetNote = startNote + interval;
             startChords = new List<List<int>> { new List<int> { startNote, targetNote } };
@@ -284,7 +303,7 @@ namespace Musicality
                 nameTarget = nnTarget.Name1;
                 if (nnTarget.Degree1 != nnTarget.Degree2)
                 {
-                    if (startNote > targetNote ?
+                    if (interval < 0 ?
                         scaleDegrees[interval] == (nnStart.Degree1 + 7 - nnTarget.Degree2) % 7 :
                         scaleDegrees[interval] == (nnTarget.Degree2 + 7 - nnStart.Degree1) % 7)
                     {
@@ -297,7 +316,7 @@ namespace Musicality
             {
                 nameStart = nnStart.Name1;
                 nameTarget = nnTarget.Name1;
-                if (startNote > targetNote ?
+                if (interval < 0 ?
                     scaleDegrees[interval] == (nnStart.Degree2 + 7 - nnTarget.Degree1) % 7 :
                     scaleDegrees[interval] == (nnTarget.Degree1 + 7 - nnStart.Degree2) % 7)
                 {

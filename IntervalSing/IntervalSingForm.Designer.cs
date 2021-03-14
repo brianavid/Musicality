@@ -40,7 +40,7 @@ namespace Musicality
             this.buttonAnswer = new System.Windows.Forms.Button();
             this.buttonGo = new System.Windows.Forms.Button();
             this.notePlayTimer = new System.Windows.Forms.Timer(this.components);
-            this.checkBoxPlayChord = new System.Windows.Forms.CheckBox();
+            this.comboBoxVariant = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -158,22 +158,25 @@ namespace Musicality
             this.notePlayTimer.Interval = 1000;
             this.notePlayTimer.Tick += new System.EventHandler(this.secondTimer_Tick);
             // 
-            // checkBoxPlayChord
+            // comboBoxVariant
             // 
-            this.checkBoxPlayChord.AutoSize = true;
-            this.checkBoxPlayChord.Location = new System.Drawing.Point(221, 12);
-            this.checkBoxPlayChord.Name = "checkBoxPlayChord";
-            this.checkBoxPlayChord.Size = new System.Drawing.Size(77, 17);
-            this.checkBoxPlayChord.TabIndex = 16;
-            this.checkBoxPlayChord.Text = "Play Chord";
-            this.checkBoxPlayChord.UseVisualStyleBackColor = true;
+            this.comboBoxVariant.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxVariant.FormattingEnabled = true;
+            this.comboBoxVariant.Items.AddRange(new object[] {
+            "Any interval from note",
+            "Fourth or fifth from top of chord",
+            "Any note from A"});
+            this.comboBoxVariant.Location = new System.Drawing.Point(109, 13);
+            this.comboBoxVariant.Name = "comboBoxVariant";
+            this.comboBoxVariant.Size = new System.Drawing.Size(221, 21);
+            this.comboBoxVariant.TabIndex = 16;
             // 
             // IntervalSingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(348, 180);
-            this.Controls.Add(this.checkBoxPlayChord);
+            this.Controls.Add(this.comboBoxVariant);
             this.Controls.Add(this.textBoxNotes);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.instructions);
@@ -200,7 +203,7 @@ namespace Musicality
         private System.Windows.Forms.Button buttonAnswer;
         private System.Windows.Forms.Button buttonGo;
         private System.Windows.Forms.Timer notePlayTimer;
-        private System.Windows.Forms.CheckBox checkBoxPlayChord;
+        private System.Windows.Forms.ComboBox comboBoxVariant;
     }
 }
 

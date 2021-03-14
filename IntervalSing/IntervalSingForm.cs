@@ -11,6 +11,7 @@ namespace Musicality
             InitializeComponent();
             comboBoxNote.SelectedItem = "C";
             comboBoxOctave.SelectedItem = "3";
+            comboBoxVariant.SelectedIndex = 0;
         }
 
         private void buttonGo_Click(object sender, EventArgs e)
@@ -18,13 +19,17 @@ namespace Musicality
             if (!Musicality.IsPlaying)
             {
                 int lowNote = comboBoxNote.SelectedIndex + comboBoxOctave.SelectedIndex * 12 + 36;
-                if (checkBoxPlayChord.Checked)
+                switch (comboBoxVariant.SelectedIndex)
                 {
-                    Musicality.PickRandomChordIntervalToSing(lowNote + 6);
-                }
-                else
-                {
-                    Musicality.PickRandomIntervalToSing(lowNote + 6);
+                    case 0:
+                        Musicality.PickRandomIntervalToSing(lowNote + 6);
+                        break;
+                    case 1:
+                        Musicality.PickRandomChordIntervalToSing(lowNote + 6);
+                        break;
+                    case 2:
+                        Musicality.PickRandomNoteToSingfromA(lowNote + 6);
+                        break;
                 }
                 instructions.Text = Musicality.Instructions;
                 textBoxNotes.Text = "";
