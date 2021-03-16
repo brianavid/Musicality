@@ -25,6 +25,7 @@ namespace Musicality
         private static string startChordName2;
         static List<List<int>> targetChords;
         static int interval;
+        static bool displayNotesUsingFlats;
 
         public static string Instructions { get; private set; }
         public static bool IsPlaying { get; private set; }
@@ -341,10 +342,23 @@ namespace Musicality
             return $"{startChordName}{nameStart} - {nameTarget}";
         }
 
-        public static void PlaySequence(int length)
+        public static void PlaySequence(int length, int key, string mode="Major")
         {
-            startChords = new List<List<int>> { new List<int> { 60, 48 }, null }.
-                        Concat(MakeNoteSequence(48, true, length).
+            var lowNote = 48 + key;
+            displayNotesUsingFlats = true;
+            switch (key)
+            {
+                case 2:
+                case 4:
+                case 6:
+                case 7:
+                case 9:
+                case 11:
+                    displayNotesUsingFlats = false; // To do: take into account the mode
+                    break;
+            }
+            startChords = new List<List<int>> { new List<int> { lowNote+12, lowNote }, null }.
+                        Concat(MakeNoteSequence(lowNote, true, length).
                         Select(n => n == 0 ? null : new List<int> { n })).ToList();
             PlayChords(startChords);
         }
@@ -353,9 +367,19 @@ namespace Musicality
         {
             var notes = startChords.Skip(2);
             StringBuilder sb = new StringBuilder();
-            foreach (var note in notes)
+            if (displayNotesUsingFlats)
             {
-                sb.AppendFormat("{0}{1} ", NoteNames[note[0] % 12].Name1, note[0] >= 60 ? "'" : "");
+                foreach (var note in notes)
+                {
+                    sb.AppendFormat("{0}{1} ", NoteNames[note[0] % 12].Name2, note[0] >= 60 ? "'" : "");
+                }
+            }
+            else
+            {
+                foreach (var note in notes)
+                {
+                    sb.AppendFormat("{0}{1} ", NoteNames[note[0] % 12].Name1, note[0] >= 60 ? "'" : "");
+                }
             }
             return sb.ToString();
         }

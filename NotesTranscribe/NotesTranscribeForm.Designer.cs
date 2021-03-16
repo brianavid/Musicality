@@ -35,13 +35,15 @@ namespace Musicality
             this.buttonAgain = new System.Windows.Forms.Button();
             this.instructions = new System.Windows.Forms.TextBox();
             this.textBoxNotes = new System.Windows.Forms.TextBox();
-            this.radioButtonSlow = new System.Windows.Forms.RadioButton();
-            this.radioButtonFast = new System.Windows.Forms.RadioButton();
             this.textBoxAnswer = new System.Windows.Forms.TextBox();
             this.notePlayTimer = new System.Windows.Forms.Timer(this.components);
-            this.radioButtonMedium = new System.Windows.Forms.RadioButton();
             this.numericUpDownLength = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxNote = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.Speed = new System.Windows.Forms.Label();
+            this.comboBoxSpeed = new System.Windows.Forms.ComboBox();
+            this.comboBoxMode = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLength)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,7 +60,7 @@ namespace Musicality
             // buttonAnswer
             // 
             this.buttonAnswer.Enabled = false;
-            this.buttonAnswer.Location = new System.Drawing.Point(260, 71);
+            this.buttonAnswer.Location = new System.Drawing.Point(244, 106);
             this.buttonAnswer.Name = "buttonAnswer";
             this.buttonAnswer.Size = new System.Drawing.Size(75, 23);
             this.buttonAnswer.TabIndex = 23;
@@ -69,7 +71,7 @@ namespace Musicality
             // buttonAgain
             // 
             this.buttonAgain.Enabled = false;
-            this.buttonAgain.Location = new System.Drawing.Point(11, 73);
+            this.buttonAgain.Location = new System.Drawing.Point(11, 103);
             this.buttonAgain.Name = "buttonAgain";
             this.buttonAgain.Size = new System.Drawing.Size(75, 23);
             this.buttonAgain.TabIndex = 24;
@@ -80,49 +82,29 @@ namespace Musicality
             // instructions
             // 
             this.instructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.instructions.Location = new System.Drawing.Point(12, 41);
+            this.instructions.Location = new System.Drawing.Point(12, 71);
             this.instructions.Name = "instructions";
             this.instructions.ReadOnly = true;
-            this.instructions.Size = new System.Drawing.Size(323, 22);
+            this.instructions.Size = new System.Drawing.Size(307, 22);
             this.instructions.TabIndex = 25;
             // 
             // textBoxNotes
             // 
             this.textBoxNotes.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxNotes.Location = new System.Drawing.Point(116, 76);
+            this.textBoxNotes.Location = new System.Drawing.Point(116, 106);
             this.textBoxNotes.Name = "textBoxNotes";
             this.textBoxNotes.ReadOnly = true;
             this.textBoxNotes.Size = new System.Drawing.Size(47, 13);
             this.textBoxNotes.TabIndex = 26;
             this.textBoxNotes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // radioButtonSlow
-            // 
-            this.radioButtonSlow.AutoSize = true;
-            this.radioButtonSlow.Location = new System.Drawing.Point(194, 12);
-            this.radioButtonSlow.Name = "radioButtonSlow";
-            this.radioButtonSlow.Size = new System.Drawing.Size(48, 17);
-            this.radioButtonSlow.TabIndex = 27;
-            this.radioButtonSlow.Text = "Slow";
-            this.radioButtonSlow.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonFast
-            // 
-            this.radioButtonFast.AutoSize = true;
-            this.radioButtonFast.Location = new System.Drawing.Point(290, 12);
-            this.radioButtonFast.Name = "radioButtonFast";
-            this.radioButtonFast.Size = new System.Drawing.Size(45, 17);
-            this.radioButtonFast.TabIndex = 28;
-            this.radioButtonFast.Text = "Fast";
-            this.radioButtonFast.UseVisualStyleBackColor = true;
-            // 
             // textBoxAnswer
             // 
             this.textBoxAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxAnswer.Location = new System.Drawing.Point(11, 109);
+            this.textBoxAnswer.Location = new System.Drawing.Point(11, 139);
             this.textBoxAnswer.Name = "textBoxAnswer";
             this.textBoxAnswer.ReadOnly = true;
-            this.textBoxAnswer.Size = new System.Drawing.Size(324, 22);
+            this.textBoxAnswer.Size = new System.Drawing.Size(308, 22);
             this.textBoxAnswer.TabIndex = 29;
             // 
             // notePlayTimer
@@ -130,21 +112,9 @@ namespace Musicality
             this.notePlayTimer.Interval = 1000;
             this.notePlayTimer.Tick += new System.EventHandler(this.notePlayTimer_Tick);
             // 
-            // radioButtonMedium
-            // 
-            this.radioButtonMedium.AutoSize = true;
-            this.radioButtonMedium.Checked = true;
-            this.radioButtonMedium.Location = new System.Drawing.Point(243, 12);
-            this.radioButtonMedium.Name = "radioButtonMedium";
-            this.radioButtonMedium.Size = new System.Drawing.Size(46, 17);
-            this.radioButtonMedium.TabIndex = 30;
-            this.radioButtonMedium.TabStop = true;
-            this.radioButtonMedium.Text = "Med";
-            this.radioButtonMedium.UseVisualStyleBackColor = true;
-            // 
             // numericUpDownLength
             // 
-            this.numericUpDownLength.Location = new System.Drawing.Point(152, 13);
+            this.numericUpDownLength.Location = new System.Drawing.Point(142, 13);
             this.numericUpDownLength.Maximum = new decimal(new int[] {
             20,
             0,
@@ -162,23 +132,91 @@ namespace Musicality
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(106, 16);
+            this.label1.Location = new System.Drawing.Point(96, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 32;
             this.label1.Text = "Length";
             // 
+            // comboBoxNote
+            // 
+            this.comboBoxNote.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxNote.FormattingEnabled = true;
+            this.comboBoxNote.Items.AddRange(new object[] {
+            "C",
+            "D♭",
+            "D",
+            "E♭",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "A♭",
+            "A",
+            "B♭",
+            "B"});
+            this.comboBoxNote.Location = new System.Drawing.Point(142, 39);
+            this.comboBoxNote.Name = "comboBoxNote";
+            this.comboBoxNote.Size = new System.Drawing.Size(45, 21);
+            this.comboBoxNote.TabIndex = 33;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(99, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(25, 13);
+            this.label2.TabIndex = 34;
+            this.label2.Text = "Key";
+            // 
+            // Speed
+            // 
+            this.Speed.AutoSize = true;
+            this.Speed.Location = new System.Drawing.Point(208, 17);
+            this.Speed.Name = "Speed";
+            this.Speed.Size = new System.Drawing.Size(38, 13);
+            this.Speed.TabIndex = 35;
+            this.Speed.Text = "Speed";
+            // 
+            // comboBoxSpeed
+            // 
+            this.comboBoxSpeed.FormattingEnabled = true;
+            this.comboBoxSpeed.Items.AddRange(new object[] {
+            "Fast",
+            "Medium",
+            "Slow"});
+            this.comboBoxSpeed.Location = new System.Drawing.Point(250, 12);
+            this.comboBoxSpeed.Name = "comboBoxSpeed";
+            this.comboBoxSpeed.Size = new System.Drawing.Size(69, 21);
+            this.comboBoxSpeed.TabIndex = 36;
+            // 
+            // comboBoxMode
+            // 
+            this.comboBoxMode.Enabled = false;
+            this.comboBoxMode.FormattingEnabled = true;
+            this.comboBoxMode.Items.AddRange(new object[] {
+            "Major",
+            "Natural Minor",
+            "Melodic Minor",
+            "Harmonic Minor"});
+            this.comboBoxMode.Location = new System.Drawing.Point(193, 40);
+            this.comboBoxMode.Name = "comboBoxMode";
+            this.comboBoxMode.Size = new System.Drawing.Size(127, 21);
+            this.comboBoxMode.TabIndex = 37;
+            // 
             // NotesTranscribeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 150);
+            this.ClientSize = new System.Drawing.Size(332, 172);
+            this.Controls.Add(this.comboBoxMode);
+            this.Controls.Add(this.comboBoxSpeed);
+            this.Controls.Add(this.Speed);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.comboBoxNote);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDownLength);
-            this.Controls.Add(this.radioButtonMedium);
             this.Controls.Add(this.textBoxAnswer);
-            this.Controls.Add(this.radioButtonFast);
-            this.Controls.Add(this.radioButtonSlow);
             this.Controls.Add(this.textBoxNotes);
             this.Controls.Add(this.instructions);
             this.Controls.Add(this.buttonAgain);
@@ -199,13 +237,15 @@ namespace Musicality
         private System.Windows.Forms.Button buttonAgain;
         private System.Windows.Forms.TextBox instructions;
         private System.Windows.Forms.TextBox textBoxNotes;
-        private System.Windows.Forms.RadioButton radioButtonSlow;
-        private System.Windows.Forms.RadioButton radioButtonFast;
         private System.Windows.Forms.TextBox textBoxAnswer;
         private System.Windows.Forms.Timer notePlayTimer;
-        private System.Windows.Forms.RadioButton radioButtonMedium;
         private System.Windows.Forms.NumericUpDown numericUpDownLength;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBoxNote;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label Speed;
+        private System.Windows.Forms.ComboBox comboBoxSpeed;
+        private System.Windows.Forms.ComboBox comboBoxMode;
     }
 }
 

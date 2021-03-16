@@ -8,15 +8,18 @@ namespace Musicality
         public NotesTranscribeForm()
         {
             InitializeComponent();
+            comboBoxMode.SelectedIndex = 0;
+            comboBoxNote.SelectedIndex = 0;
+            comboBoxSpeed.SelectedIndex = 1;
         }
 
         private void buttonGo_Click(object sender, EventArgs e)
         {
             if (!Musicality.IsPlaying)
             {
-                notePlayTimer.Interval = radioButtonFast.Checked ? 1000 : radioButtonMedium.Checked ? 1500 : 2000;
-                Musicality.PlaySequence(Convert.ToInt32(numericUpDownLength.Value));
-                instructions.Text = "Write down this sequence (after an initial C)";
+                notePlayTimer.Interval = NoteTimeInterval();
+                Musicality.PlaySequence(Convert.ToInt32(numericUpDownLength.Value), comboBoxNote.SelectedIndex, comboBoxMode.Text);
+                instructions.Text = $"Write down this sequence (after an initial {comboBoxNote.SelectedItem})";
                 textBoxAnswer.Text = "";
                 buttonAgain.Enabled = true;
                 buttonAnswer.Enabled = true;
@@ -29,10 +32,15 @@ namespace Musicality
         {
             if (!Musicality.IsPlaying)
             {
-                notePlayTimer.Interval = radioButtonFast.Checked ? 1000 : radioButtonMedium.Checked ? 1500 : 2000;
+                notePlayTimer.Interval = NoteTimeInterval();
                 Musicality.ReplayStartNotes();
                 notePlayTimer.Start();
             }
+        }
+
+        private int NoteTimeInterval()
+        {
+            return comboBoxSpeed.Text == "Fast" ? 1000 : comboBoxSpeed.Text == "Medium" ? 1500 : 2000;
         }
 
         private void buttonAnswer_Click(object sender, EventArgs e)
