@@ -304,10 +304,11 @@ namespace Musicality
                 nameTarget = nnTarget.Name1;
                 if (nnTarget.Degree1 != nnTarget.Degree2)
                 {
-                    if (interval == 6 && nnTarget.Sharps >= 3 ||
-                        (interval < 0 ?
-                         scaleDegrees[interval] == (nnStart.Degree1 + 7 - nnTarget.Degree2) % 7 :
-                         scaleDegrees[interval] == (nnTarget.Degree2 + 7 - nnStart.Degree1) % 7))
+                    if (interval == 6 ? 
+                          nnTarget.Sharps >= 3 :
+                        interval < 0 ?
+                          scaleDegrees[interval] == (nnStart.Degree1 + 7 - nnTarget.Degree2) % 7 :
+                          scaleDegrees[interval] == (nnTarget.Degree2 + 7 - nnStart.Degree1) % 7)
                     {
                         nameTarget = nnTarget.Name2;
                         startChordName = startChordName2;
@@ -318,10 +319,11 @@ namespace Musicality
             {
                 nameStart = nnStart.Name1;
                 nameTarget = nnTarget.Name1;
-                if (interval == 6 && nnStart.Sharps >= 3 ||
-                   (interval < 0 ?
+                if (interval == 6 ? 
+                      nnStart.Sharps >= 3 :
+                   interval < 0 ?
                      scaleDegrees[interval] == (nnStart.Degree2 + 7 - nnTarget.Degree1) % 7 :
-                     scaleDegrees[interval] == (nnTarget.Degree1 + 7 - nnStart.Degree2) % 7))
+                     scaleDegrees[interval] == (nnTarget.Degree1 + 7 - nnStart.Degree2) % 7)
                 {
                     nameStart = nnStart.Name2;
                     startChordName = startChordName2;
