@@ -22,12 +22,24 @@ namespace Musicality
                 switch (comboBoxVariant.SelectedIndex)
                 {
                     case 0:
-                        Musicality.PickRandomIntervalToSing(lowNote + 6);
+                        Musicality.PickRandomIntervalToSing(lowNote + 6, true);
                         break;
                     case 1:
-                        Musicality.PickRandomChordIntervalToSing(lowNote + 6);
+                        Musicality.PickRandomIntervalToSing(lowNote + 6, false);
                         break;
                     case 2:
+                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.Perfect);
+                        break;
+                    case 3:
+                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.Thirds);
+                        break;
+                    case 4:
+                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.Sixths);
+                        break;
+                    case 5:
+                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.Mixed);
+                        break;
+                    case 6:
                         Musicality.PickRandomNoteToSingfromA(lowNote + 6);
                         break;
                 }

@@ -48,10 +48,10 @@ namespace Musicality
             // 
             this.textBoxNotes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxNotes.Location = new System.Drawing.Point(129, 76);
+            this.textBoxNotes.Location = new System.Drawing.Point(95, 76);
             this.textBoxNotes.Name = "textBoxNotes";
             this.textBoxNotes.ReadOnly = true;
-            this.textBoxNotes.Size = new System.Drawing.Size(97, 17);
+            this.textBoxNotes.Size = new System.Drawing.Size(159, 17);
             this.textBoxNotes.TabIndex = 15;
             this.textBoxNotes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -163,8 +163,12 @@ namespace Musicality
             this.comboBoxVariant.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxVariant.FormattingEnabled = true;
             this.comboBoxVariant.Items.AddRange(new object[] {
+            "Close interval from note",
             "Any interval from note",
             "Fourth or fifth from top of chord",
+            "Major or minor third from top of chord",
+            "Major or minor sixth from top of chord",
+            "Any interval from top of chord",
             "Any note from A"});
             this.comboBoxVariant.Location = new System.Drawing.Point(109, 13);
             this.comboBoxVariant.Name = "comboBoxVariant";

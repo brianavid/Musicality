@@ -35,6 +35,10 @@ namespace Musicality
         static Dictionary<int, string> intervalName = new Dictionary<int, string>
         {
             { -12, "octave down"},
+            { -11, "major 7th down"},
+            { -10, "minor 7th down"},
+            { -9, "major 6th down"},
+            { -8, "minor 6th down"},
             { -7, "perfect 5th down"},
             { -6, "tritone down"},
             { -5, "perfect 4th down"},
@@ -43,6 +47,10 @@ namespace Musicality
             { -2, "whole tone down"},
             { -1, "semitone down"},
             { 12, "octave up"},
+            { 11, "major 7th up"},
+            { 10, "minor 7th up"},
+            { 9, "major 6th up"},
+            { 8, "minor 6th up"},
             { 7, "perfect 5th up"},
             { 6, "tritone up"},
             { 5, "perfect 4th up"},
@@ -124,18 +132,21 @@ namespace Musicality
             ( 5, 9, 0, false ),
         };
 
+        public enum ChordIntervalChooser
+        {
+            Thirds, Perfect, Sixths, Mixed
+        }
+
         public static void Initialise()
         {
             MidiPlayer.Initialise();
         }
 
-        public static void PickRandomIntervalToSing(int middleNote)
+        public static void PickRandomIntervalToSing(int middleNote, bool onlyCloseIntervals)
         {
             targetNote = random.Next(middleNote - 6, middleNote + 6);
-            interval = random.Next(-7, 9);
+            interval = onlyCloseIntervals ? random.Next(-6, 8) : random.Next(-11, 13);
             if (interval <= 0) interval--;
-            if (interval < -7) interval = -12;
-            if (interval > 7) interval = 12;
             startNote = targetNote - interval;
             Instructions = $"Sing a {intervalName[interval]} from ...";
             startChords = new List<List<int>> { new List<int> { startNote } };
@@ -144,10 +155,19 @@ namespace Musicality
             PlayChords(startChords);
         }
 
-        public static void PickRandomChordIntervalToSing(int middleNote)
+        static Dictionary<ChordIntervalChooser, int[]> ChordIntervalChoices = new Dictionary<ChordIntervalChooser, int[]>
+        {
+            { ChordIntervalChooser.Perfect, new int[] { 5, 7 } },
+            { ChordIntervalChooser.Thirds, new int[] { 3, 4 } },
+            { ChordIntervalChooser.Sixths, new int[] { 8, 9 } },
+            { ChordIntervalChooser.Mixed, new int[] { 3, 4, 5, 7, 8, 9 } },
+        };
+
+        public static void PickRandomChordIntervalToSing(int middleNote, ChordIntervalChooser chordIntervalChooser)
         {
             targetNote = random.Next(middleNote - 6, middleNote + 6);
-            interval = random.Next(0, 2) * 2 + 5;
+            var intervalChoices = ChordIntervalChoices[chordIntervalChooser];
+            interval = intervalChoices[random.Next(0, intervalChoices.Length)];
             startNote = targetNote - interval;
             Instructions = $"Sing a {intervalName[interval]} from ...";
             var triadIntervals = TriadIntervals[random.Next(0, 6)];
