@@ -28,18 +28,27 @@ namespace Musicality
                         Musicality.PickRandomIntervalToSing(lowNote + 6, false);
                         break;
                     case 2:
-                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.Perfect);
+                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.PerfectAbove);
                         break;
                     case 3:
-                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.Thirds);
+                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.ThirdsAbove);
                         break;
                     case 4:
-                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.Sixths);
+                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.SixthsAbove);
                         break;
                     case 5:
-                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.Mixed);
+                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.PerfectBelow);
                         break;
                     case 6:
+                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.ThirdsBelow);
+                        break;
+                    case 7:
+                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.SixthsBelow);
+                        break;
+                    case 8:
+                        Musicality.PickRandomChordIntervalToSing(lowNote + 6, Musicality.ChordIntervalChooser.Mixed);
+                        break;
+                    case 9:
                         Musicality.PickRandomNoteToSingfromA(lowNote + 6);
                         break;
                 }

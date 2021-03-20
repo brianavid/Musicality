@@ -107,9 +107,9 @@ namespace Musicality
             "A",
             "A#",
             "B"});
-            this.comboBoxNote.Location = new System.Drawing.Point(56, 28);
+            this.comboBoxNote.Location = new System.Drawing.Point(44, 28);
             this.comboBoxNote.Name = "comboBoxNote";
-            this.comboBoxNote.Size = new System.Drawing.Size(33, 21);
+            this.comboBoxNote.Size = new System.Drawing.Size(45, 21);
             this.comboBoxNote.TabIndex = 8;
             // 
             // instructions
@@ -165,10 +165,13 @@ namespace Musicality
             this.comboBoxVariant.Items.AddRange(new object[] {
             "Close interval from note",
             "Any interval from note",
-            "Fourth or fifth from top of chord",
-            "Major or minor third from top of chord",
-            "Major or minor sixth from top of chord",
-            "Any interval from top of chord",
+            "Fourth or fifth above top of chord",
+            "Major or minor third above top of chord",
+            "Major or minor sixth above top of chord",
+            "Fourth or fifth below bottom of chord",
+            "Major or minor third below bottom of chord",
+            "Major or minor sixth below bottom of chord",
+            "Any interval above or below chord",
             "Any note from A"});
             this.comboBoxVariant.Location = new System.Drawing.Point(109, 13);
             this.comboBoxVariant.Name = "comboBoxVariant";
