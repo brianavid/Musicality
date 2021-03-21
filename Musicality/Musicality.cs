@@ -46,6 +46,7 @@ namespace Musicality
             { 3, "minor 3rd"},
             { 2, "whole tone"},
             { 1, "semitone"},
+            { 0, "note"},
         };
 
         static Dictionary<int, string> shortIntervalName = new Dictionary<int, string>
@@ -114,7 +115,7 @@ namespace Musicality
 
         public enum ChordIntervalChooser
         {
-            ThirdsAbove, PerfectAbove, SixthsAbove, ThirdsBelow, PerfectBelow, SixthsBelow, Mixed
+            TopNote, BottomNote, ThirdsAbove, PerfectAbove, SixthsAbove, ThirdsBelow, PerfectBelow, SixthsBelow, Mixed
         }
 
         public static void Initialise()
@@ -138,6 +139,8 @@ namespace Musicality
 
         static Dictionary<ChordIntervalChooser, int[]> ChordIntervalChoices = new Dictionary<ChordIntervalChooser, int[]>
         {
+            { ChordIntervalChooser.TopNote, new int[] { 0 } },
+            { ChordIntervalChooser.BottomNote, new int[] { 0 } },
             { ChordIntervalChooser.PerfectAbove, new int[] { 5, 7 } },
             { ChordIntervalChooser.ThirdsAbove, new int[] { 3, 4 } },
             { ChordIntervalChooser.SixthsAbove, new int[] { 8, 9 } },
@@ -155,6 +158,7 @@ namespace Musicality
                 default:
                     isAbove = false;
                     break;
+                case ChordIntervalChooser.TopNote:
                 case ChordIntervalChooser.PerfectAbove:
                 case ChordIntervalChooser.ThirdsAbove:
                 case ChordIntervalChooser.SixthsAbove:
@@ -164,19 +168,23 @@ namespace Musicality
                     isAbove = random.Next(0, 2) == 0;
                     break;
             }
-            var direction = isAbove ? "above top" : "below bottom";
             targetNote = random.Next(middleNote - 6, middleNote + 6);
             var intervalChoices = ChordIntervalChoices[chordIntervalChooser];
             interval = intervalChoices[random.Next(0, intervalChoices.Length)] * (isAbove ? 1 : -1);
+            var direction = interval == 0 ?
+                                (isAbove ? "top" : "bottom") :
+                                (isAbove ? "above top" : "below bottom");
             startNote = targetNote - interval;
-            Instructions = $"Sing a {intervalName[Math.Abs(interval)]} {direction} note of ...";
+            Instructions = interval == 0 ?
+                                $"Sing the {direction} note of ..." :
+                                $"Sing a {intervalName[Math.Abs(interval)]} {direction} note of ...";
             var triadIntervals = TriadIntervals[random.Next(0, 6)];
             if (isAbove)
             {
                 startChords = new List<List<int>> { new List<int> {
-                    startNote + 12 - triadIntervals.Item1,
-                    startNote + 12 - triadIntervals.Item2,
-                    startNote + 12 - triadIntervals.Item3 } };
+                    startNote - triadIntervals.Item1,
+                    startNote - triadIntervals.Item2,
+                    startNote - triadIntervals.Item3 } };
             }
             else
             {
@@ -185,10 +193,16 @@ namespace Musicality
                     startNote + triadIntervals.Item2,
                     startNote + triadIntervals.Item3 } };
             }
-            var triadRootNote = isAbove ? triadIntervals.Item3 : -triadIntervals.Item1;
+            var intervalToRoot = isAbove ? triadIntervals.Item3 : -triadIntervals.Item1;
             var triadIsMajor = isAbove ? triadIntervals.isMajor : !triadIntervals.isMajor;
-            startChordName1 = MakeChordName(startNote, triadRootNote, triadIsMajor, true);
-            startChordName2 = MakeChordName(startNote, triadRootNote, triadIsMajor, false);
+            startChordName1 = MakeChordName(startNote, intervalToRoot, triadIsMajor, true);
+            startChordName2 = MakeChordName(startNote, intervalToRoot, triadIsMajor, false);
+            if (interval == 0)
+            {
+                //  This should ensure that the target note display is enharmonic with the chord
+                startNote += (12 - intervalToRoot);
+                interval = intervalToRoot;
+            }
             PlayChords(startChords);
         }
 
@@ -351,7 +365,7 @@ namespace Musicality
             {
                 nameStart = nnStart.Name1;
                 nameTarget = nnTarget.Name1;
-                if (interval == 6 ? 
+                if (interval == 6 ?
                       nnStart.Sharps >= 3 :
                    interval < 0 ?
                      scaleDegrees[Math.Abs(interval)] == (nnStart.Degree2 + 7 - nnTarget.Degree1) % 7 :
@@ -375,7 +389,7 @@ namespace Musicality
                     nameTarget = nnTarget.Name1;
                 }
             }
-            return $"{startChordName}{nameStart} - {nameTarget}";
+            return interval == 0 ? $"{startChordName} {nameTarget}" : $"{startChordName}{nameStart} - {nameTarget}";
         }
 
         public static void PlaySequence(int length, int key, string mode="Major")

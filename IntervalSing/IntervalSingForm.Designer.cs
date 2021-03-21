@@ -165,6 +165,8 @@ namespace Musicality
             this.comboBoxVariant.Items.AddRange(new object[] {
             "Close interval from note",
             "Any interval from note",
+            "Top note of chord",
+            "Bottom note of chord",
             "Fourth or fifth above top of chord",
             "Major or minor third above top of chord",
             "Major or minor sixth above top of chord",
